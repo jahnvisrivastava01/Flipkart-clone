@@ -1,21 +1,14 @@
 import admin from "firebase-admin";
 import dotenv from "dotenv";
+import serviceAccount from "../serviceAccountKey.json" with { type: "json" };
 
 dotenv.config();
 
-const { FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY } = process.env;
+export const isFirebaseConfigured = true;
 
-export const isFirebaseConfigured = Boolean(
-  FIREBASE_PROJECT_ID && FIREBASE_CLIENT_EMAIL && FIREBASE_PRIVATE_KEY
-);
-
-if (isFirebaseConfigured && !admin.apps.length) {
+if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert({
-      projectId: FIREBASE_PROJECT_ID,
-      clientEmail: FIREBASE_CLIENT_EMAIL,
-      privateKey: FIREBASE_PRIVATE_KEY.replace(/\\n/g, "\n"),
-    }),
+    credential: admin.credential.cert(serviceAccount),
   });
 }
 
