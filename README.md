@@ -1,12 +1,32 @@
-# Flipkart Clone — MERN Stack
+# 🛒 Flipkart Clone — MERN Stack
 
-A full-stack e-commerce web application inspired by Flipkart, built using the MERN stack. The project includes a responsive shopping experience, authentication, product management, cart and checkout flow, order history, admin functionality, cloud image uploads, validation, rate limiting, automated API tests, and Google Sign-In.
+A full-stack e-commerce web application inspired by Flipkart, built using the **MERN stack**. The project includes a responsive shopping experience, authentication, product management, cart and checkout flow, order history, admin functionality, cloud image uploads, validation, rate limiting, automated API testing, Google Sign-In, and production deployment.
 
 ---
 
-## 🚀 Features
+## 🚀 Live Demo
 
-### 🛍️ Customer Features
+<p align="center">
+
+<a href="https://flipkart-clone-eight-jet.vercel.app/">
+  <img src="https://img.shields.io/badge/FLIPKART%20CLONE-10B981?style=for-the-badge&logo=vercel&logoColor=white" />
+</a>
+
+</p>
+
+### 🌐 Deployment
+
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** MongoDB Atlas
+- **Image Storage:** Cloudinary
+- **Authentication:** Firebase Authentication + JWT
+
+---
+
+# ✨ Features
+
+## 🛍️ Customer Features
 
 - Product catalog
 - Category-based product browsing
@@ -23,8 +43,14 @@ A full-stack e-commerce web application inspired by Flipkart, built using the ME
 - Checkout flow
 - Order history
 - Dark/light theme toggle
+- Responsive UI
+- Interactive navigation and dropdowns
+- Product hover animations
+- Smooth page and component animations
 
-### 🔐 Authentication
+---
+
+## 🔐 Authentication
 
 - User registration
 - User login
@@ -36,98 +62,229 @@ A full-stack e-commerce web application inspired by Flipkart, built using the ME
 - Role-based authorization
 - Admin authentication
 
-### 👨‍💼 Admin Features
+### Email/Password Authentication Flow
 
-- Admin dashboard
-- Add products
-- Upload product images
-- Product management
-- View orders
-- Update order statuses
-- Protected admin routes
+```text
+Register / Login
+      ↓
+Zod Validation
+      ↓
+MongoDB User
+      ↓
+JWT Token
+      ↓
+Authenticated User
+````
 
-### ☁️ Cloud Image Uploads
+### Google Sign-In Flow
 
-Product images can be uploaded directly to Cloudinary instead of relying on pasted image URLs.
-
-- Multer for file handling
-- Cloudinary for cloud storage
-- Image upload API
-- 5 MB upload limit
-- Secure Cloudinary URLs
-- Product images stored using Cloudinary URLs
-
-### 🛡️ Security
-
-- Zod request validation
-- JWT authentication
-- Protected API routes
-- Role-based authorization
-- Authentication rate limiting
-- General API rate limiting
-- Environment variables for secrets
-- Firebase service account excluded from Git
-- `.gitignore` configured for sensitive files
-
-### 🧪 Testing
-
-Automated API tests using:
-
-- Vitest
-- Supertest
-
-Current test coverage includes:
-
-- Health check API
-- Invalid registration email
-- Short registration password
-- Invalid login email
-- Product listing API
-- Unauthorized product creation
-
-All current tests pass successfully.
+```text
+Google Account
+      ↓
+Firebase Authentication
+      ↓
+Firebase ID Token
+      ↓
+Backend /api/auth/google
+      ↓
+Firebase Admin verifies token
+      ↓
+User created/found in MongoDB
+      ↓
+JWT Token generated
+      ↓
+Authenticated User
+```
 
 ---
 
-## 🧰 Tech Stack
+# 👨‍💼 Admin Features
 
-### Frontend
+* Admin dashboard
+* Add products
+* Edit existing products
+* Delete products
+* Upload product images
+* Manage product information
+* View orders
+* Update order statuses
+* Protected admin routes
+* Role-based admin authorization
 
-- React
-- Vite
-- Tailwind CSS
-- Axios
-- React Router
-- Firebase Authentication
+### Admin Product Management
 
-### Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- Zod
-- Multer
-- Cloudinary
-- Express Rate Limit
-- Firebase Admin SDK
-
-### Testing
-
-- Vitest
-- Supertest
-
-### Development Tools
-
-- Git
-- GitHub
-- VS Code
-- npm
+```text
+Admin Login
+     ↓
+Admin Dashboard
+     ↓
+Add / Edit Product
+     ↓
+Upload Product Image
+     ↓
+Cloudinary
+     ↓
+Product Saved in MongoDB
+```
 
 ---
 
-## 📁 Project Structure
+# ☁️ Cloudinary Image Uploads
+
+Product images can be uploaded directly from the admin panel to **Cloudinary** instead of relying on manually pasted image URLs.
+
+### Upload Flow
+
+```text
+Admin selects image
+        ↓
+Frontend sends image
+        ↓
+Multer processes upload
+        ↓
+Express Upload API
+        ↓
+Cloudinary
+        ↓
+Secure Image URL
+        ↓
+Product saved in MongoDB
+```
+
+### Upload Features
+
+* Multer for file handling
+* Cloudinary cloud storage
+* Dedicated image upload API
+* Maximum file size: **5 MB**
+* Secure Cloudinary URLs
+* Cloudinary URLs stored with products
+
+---
+
+# 🛡️ Security
+
+The backend implements multiple security mechanisms.
+
+### Request Validation
+
+**Zod** is used to validate:
+
+* Registration data
+* Login data
+* Product data
+* Product reviews
+
+### Authentication
+
+* JWT authentication
+* Protected API routes
+* Admin-only authorization
+* Firebase ID token verification for Google Sign-In
+
+### Rate Limiting
+
+Authentication endpoints have stricter limits than general API endpoints.
+
+```text
+Authentication:
+10 requests / 15 minutes
+
+General API:
+100 requests / 15 minutes
+```
+
+### Environment Variables
+
+Sensitive configuration is stored using environment variables instead of being committed to GitHub.
+
+Sensitive values include:
+
+* MongoDB connection string
+* JWT secret
+* Cloudinary API secret
+* Firebase private credentials
+
+---
+
+# 🧪 Automated API Testing
+
+The backend uses:
+
+* **Vitest**
+* **Supertest**
+
+Current tests include:
+
+```text
+✓ Health Check API
+✓ Invalid registration email
+✓ Short registration password
+✓ Invalid login email
+✓ Product listing API
+✓ Unauthorized product creation
+```
+
+### Test Result
+
+```text
+6 / 6 tests passing
+```
+
+Run tests using:
+
+```bash
+npm test
+```
+
+---
+
+# 🧰 Tech Stack
+
+## Frontend
+
+* React
+* Vite
+* Tailwind CSS
+* Axios
+* React Router
+* Firebase Authentication
+
+## Backend
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* Zod
+* Multer
+* Cloudinary
+* Express Rate Limit
+* Firebase Admin SDK
+
+## Testing
+
+* Vitest
+* Supertest
+
+## Deployment
+
+* Vercel
+* Render
+* MongoDB Atlas
+* Cloudinary
+
+## Development Tools
+
+* Git
+* GitHub
+* VS Code
+* npm
+
+---
+
+# 📁 Project Structure
 
 ```text
 flipkart-clone/
@@ -166,7 +323,6 @@ flipkart-clone/
 │   │
 │   ├── .env
 │   ├── .env.example
-│   ├── serviceAccountKey.json
 │   ├── server.js
 │   └── package.json
 │
@@ -183,28 +339,29 @@ flipkart-clone/
 │   └── package.json
 │
 ├── .gitignore
-└── README.md
-````
+├── README.md
+└── ...
+```
 
-> **Note:** `backend/.env`, `frontend/.env`, and `backend/serviceAccountKey.json` contain private configuration and are excluded from Git.
+> **Note:** `.env` files contain private configuration and are excluded from Git.
 
 ---
 
 # ⚙️ Backend Setup
 
-## 1. Navigate to backend
+## 1. Navigate to Backend
 
 ```bash
 cd backend
 ```
 
-## 2. Install dependencies
+## 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-## 3. Create environment file
+## 3. Create Environment File
 
 Create:
 
@@ -212,7 +369,7 @@ Create:
 backend/.env
 ```
 
-Example:
+Add:
 
 ```env
 PORT=5000
@@ -226,15 +383,21 @@ CLIENT_URL=http://localhost:5173
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
+
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_CLIENT_EMAIL=your_client_email
+FIREBASE_PRIVATE_KEY="your_private_key"
 ```
 
-Do not commit `.env` to GitHub.
+> Never commit `.env` to GitHub.
 
 ---
 
-## 4. MongoDB
+# 🍃 MongoDB Setup
 
-Make sure MongoDB is running locally.
+The application supports both local MongoDB and MongoDB Atlas.
+
+### Local MongoDB
 
 Default connection:
 
@@ -242,28 +405,44 @@ Default connection:
 mongodb://127.0.0.1:27017/flipkart-clone
 ```
 
-Alternatively, you can use MongoDB Atlas by replacing `MONGO_URI` with your Atlas connection string.
+### MongoDB Atlas
+
+For production, replace `MONGO_URI` with your MongoDB Atlas connection string.
+
+Example:
+
+```env
+MONGO_URI=your_mongodb_atlas_connection_string
+```
 
 ---
 
-## 5. Firebase Admin Setup
+# 🔥 Firebase Setup
 
-Google Sign-In uses Firebase Authentication on the frontend and Firebase Admin SDK on the backend.
+Google Sign-In uses:
 
-### Create Firebase Project
+* **Firebase Authentication** on the frontend
+* **Firebase Admin SDK** on the backend
 
-1. Create a Firebase project.
-2. Enable Google under:
+## 1. Create Firebase Project
+
+Create a project in Firebase Console.
+
+Enable Google Sign-In:
 
 ```text
-Authentication
+Firebase Console
+→ Authentication
 → Sign-in method
 → Google
+→ Enable
 ```
 
-3. Register a Web App in Firebase.
+Register a Web App in the Firebase project.
 
-### Frontend Firebase Configuration
+---
+
+## 2. Frontend Firebase Configuration
 
 Create:
 
@@ -282,9 +461,27 @@ VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 VITE_FIREBASE_APP_ID=your_app_id
 ```
 
-### Backend Firebase Configuration
+These variables are used by the React frontend to initialize Firebase Authentication.
 
-Generate a Firebase Service Account key:
+---
+
+## 3. Backend Firebase Configuration
+
+The backend uses **Firebase Admin SDK** to verify Google Sign-In ID tokens.
+
+Add the following to:
+
+```text
+backend/.env
+```
+
+```env
+FIREBASE_PROJECT_ID=your_project_id
+FIREBASE_CLIENT_EMAIL=your_client_email
+FIREBASE_PRIVATE_KEY="your_private_key"
+```
+
+These values can be obtained from:
 
 ```text
 Firebase Console
@@ -293,29 +490,52 @@ Firebase Console
 → Generate New Private Key
 ```
 
-Save the downloaded file as:
+Map the service-account JSON fields:
 
 ```text
-backend/serviceAccountKey.json
+project_id
+     ↓
+FIREBASE_PROJECT_ID
+
+client_email
+     ↓
+FIREBASE_CLIENT_EMAIL
+
+private_key
+     ↓
+FIREBASE_PRIVATE_KEY
 ```
 
-This file must **never be committed to GitHub**.
+For production deployment, these values should be configured securely through the hosting platform's environment variables.
+
+> **Never commit Firebase private credentials or service-account files to GitHub.**
 
 ---
 
-## 6. Seed the Database
+# 🌱 Seed the Database
 
-Run:
+From the backend directory:
 
 ```bash
 npm run seed
 ```
 
-This loads sample products and creates the default admin account.
+The seed script:
+
+* Adds sample products
+* Creates the default administrator account
+
+### Default Admin
+
+The administrator credentials are intentionally **not documented in this public repository**.
+
+Use secure credentials when configuring the application.
 
 ---
 
-## 7. Start Backend
+# ▶️ Start Backend
+
+Run:
 
 ```bash
 npm run dev
@@ -333,19 +553,19 @@ http://localhost:5000
 
 Open another terminal.
 
-## 1. Navigate to frontend
+## 1. Navigate to Frontend
 
 ```bash
 cd frontend
 ```
 
-## 2. Install dependencies
+## 2. Install Dependencies
 
 ```bash
 npm install
 ```
 
-## 3. Start development server
+## 3. Start Development Server
 
 ```bash
 npm run dev
@@ -377,8 +597,8 @@ npm test
 
 The project uses:
 
-* Vitest for testing
-* Supertest for API testing
+* Vitest for unit/API testing
+* Supertest for HTTP API testing
 
 Current test suites cover:
 
@@ -387,103 +607,6 @@ Current test suites cover:
 ✓ Authentication validation
 ✓ Product API
 ✓ Unauthorized access protection
-```
-
----
-
-# ☁️ Cloudinary Image Upload
-
-Admin users can upload product images through the admin panel.
-
-The upload flow is:
-
-```text
-Admin selects image
-        ↓
-Frontend sends image
-        ↓
-Multer processes upload
-        ↓
-Express upload API
-        ↓
-Cloudinary
-        ↓
-Secure image URL
-        ↓
-Product saved in MongoDB
-```
-
-Supported image uploads are limited to 5 MB per file.
-
----
-
-# 🛡️ API Security
-
-The backend implements multiple security measures.
-
-### Request Validation
-
-Zod validates:
-
-* Registration data
-* Login data
-* Product data
-* Product reviews
-
-### Rate Limiting
-
-Authentication endpoints have stricter limits than general API endpoints.
-
-```text
-Authentication:
-10 requests / 15 minutes
-
-General API:
-100 requests / 15 minutes
-```
-
-### Authentication
-
-Protected endpoints use JWT authentication.
-
-Admin-only operations additionally require admin authorization.
-
----
-
-# 🔑 Authentication Flow
-
-### Email/Password
-
-```text
-Register/Login
-      ↓
-Zod Validation
-      ↓
-MongoDB User
-      ↓
-JWT Token
-      ↓
-Authenticated User
-```
-
-### Google Sign-In
-
-```text
-Google Account
-      ↓
-Firebase Authentication
-      ↓
-Firebase ID Token
-      ↓
-Backend /api/auth/google
-      ↓
-Firebase Admin verifies token
-      ↓
-User created/found in MongoDB
-      ↓
-JWT Token generated
-      ↓
-Authenticated User
 ```
 
 ---
@@ -532,7 +655,9 @@ GET /api/health
 
 ---
 
-# 🖥️ Application Flow
+# 🛒 Application Flow
+
+## Customer Flow
 
 ```text
 Home Page
@@ -552,16 +677,18 @@ Place Order
 Order History
 ```
 
-Admin:
+## Admin Flow
 
 ```text
 Admin Login
     ↓
 Admin Dashboard
     ↓
-Add Product
+Add / Edit Product
     ↓
-Upload Image to Cloudinary
+Upload Image
+    ↓
+Cloudinary
     ↓
 Manage Products
     ↓
@@ -572,26 +699,71 @@ Update Order Status
 
 ---
 
+# ☁️ Production Deployment
+
+The project is deployed using:
+
+```text
+Frontend
+     ↓
+Vercel
+
+Backend
+     ↓
+Render
+
+Database
+     ↓
+MongoDB Atlas
+
+Images
+     ↓
+Cloudinary
+```
+
+### Frontend Environment Variable
+
+For production:
+
+```env
+VITE_API_URL=https://flipkart-clone-0noh.onrender.com/api
+```
+
+### Backend Environment Variable
+
+The backend uses:
+
+```env
+CLIENT_URL=https://flipkart-clone-eight-jet.vercel.app
+```
+
+along with the required MongoDB, JWT, Cloudinary, and Firebase environment variables.
+
+---
+
 # 🔒 Environment & Secret Protection
 
-The following files are intentionally excluded from Git:
+The following are intentionally excluded from Git:
 
 ```text
 .env
 .env.*
-backend/serviceAccountKey.json
 node_modules/
 dist/
+build/
 coverage/
+*.log
 ```
 
-The repository contains `.env.example` files so that other developers can understand which environment variables are required.
+Firebase private credentials are also kept outside the repository.
 
-**Never upload Firebase service-account credentials, Cloudinary API secrets, JWT secrets, or other private credentials to GitHub.**
+The repository contains `.env.example` files to show developers which environment variables are required.
+
+> **Never upload Firebase private credentials, Cloudinary API secrets, MongoDB passwords, JWT secrets, or other private credentials to GitHub.**
 
 ---
 
-# 🚧 Payment Gateway
+# 💳 Payment Gateway
 
 A real payment gateway has **not been implemented yet**.
 
@@ -601,7 +773,7 @@ A payment provider such as Razorpay or Stripe can be integrated in a future vers
 
 ---
 
-# 🚀 Future Improvements
+# 🚧 Future Improvements
 
 Possible future enhancements include:
 
@@ -615,41 +787,71 @@ Possible future enhancements include:
 * Seller dashboard
 * Product recommendations
 * Improved admin analytics
-* Production deployment
 * CI/CD pipeline
 * Expanded automated test coverage
 
 ---
 
-# 📌 Project Status
+# 📊 Project Status
 
-| Feature              | Status             |
-| -------------------- | ------------------ |
-| MERN architecture    | ✅ Complete         |
-| Product catalog      | ✅ Complete         |
-| Search & sorting     | ✅ Complete         |
-| Pagination           | ✅ Complete         |
-| Product details      | ✅ Complete         |
-| Ratings & reviews    | ✅ Complete         |
-| JWT authentication   | ✅ Complete         |
-| Google Sign-In       | ✅ Complete         |
-| Zod validation       | ✅ Complete         |
-| Cloudinary uploads   | ✅ Complete         |
-| Rate limiting        | ✅ Complete         |
-| Cart                 | ✅ Complete         |
-| Checkout             | ✅ Complete         |
-| Order history        | ✅ Complete         |
-| Admin panel          | ✅ Complete         |
-| Dark/light mode      | ✅ Complete         |
-| API testing          | ✅ Complete         |
-| GitHub repository    | ✅ Complete         |
-| Real payment gateway | ⏸️ Not implemented |
+| Feature                 | Status             |
+| ----------------------- | ------------------ |
+| MERN architecture       | ✅ Complete         |
+| Product catalog         | ✅ Complete         |
+| Search & sorting        | ✅ Complete         |
+| Pagination              | ✅ Complete         |
+| Product details         | ✅ Complete         |
+| Ratings & reviews       | ✅ Complete         |
+| JWT authentication      | ✅ Complete         |
+| Google Sign-In          | ✅ Complete         |
+| Firebase Authentication | ✅ Complete         |
+| Zod validation          | ✅ Complete         |
+| Cloudinary uploads      | ✅ Complete         |
+| Rate limiting           | ✅ Complete         |
+| Cart                    | ✅ Complete         |
+| Checkout                | ✅ Complete         |
+| Order history           | ✅ Complete         |
+| Admin panel             | ✅ Complete         |
+| Product editing         | ✅ Complete         |
+| Product deletion        | ✅ Complete         |
+| Dark/light mode         | ✅ Complete         |
+| API testing             | ✅ Complete         |
+| MongoDB Atlas           | ✅ Complete         |
+| Backend deployment      | ✅ Complete         |
+| Frontend deployment     | ✅ Complete         |
+| Real payment gateway    | ⏸️ Not implemented |
+
+---
+
+# 📌 Key Highlights
+
+This project demonstrates practical experience with:
+
+* Full-stack MERN development
+* REST API development
+* JWT authentication
+* Firebase Google Authentication
+* Role-based authorization
+* MongoDB and Mongoose
+* Cloudinary image management
+* Zod backend validation
+* API rate limiting
+* Automated API testing
+* React routing
+* Tailwind CSS
+* Responsive UI development
+* Git and GitHub
+* Vercel deployment
+* Render deployment
+* MongoDB Atlas
+* Environment and secret management
 
 ---
 
 # 👩‍💻 Author
 
 **Jahnvi Srivastava**
+
 
 
 ---
